@@ -142,6 +142,10 @@ function generateCard() {
     div.innerHTML = `<span>${text}</span>`;
     if (i !== 12) {
       div.addEventListener("click", () => uploadImage(i, div));
+      div.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        removeImage(i, div);
+      });
     }
     card.appendChild(div);
   });
@@ -159,15 +163,26 @@ function uploadImage(i, cellDiv) {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = () => {
+      const existingImg = cellDiv.querySelector("img");
+      if (existingImg) existingImg.remove();
       const img = document.createElement("img");
       img.src = reader.result;
       cellDiv.appendChild(img);
       cellDiv.classList.add("checked");
-      cardData[i] = { prompt: cardData[i], image: reader.result };
+      cardData[i] = { prompt: cardData[i].prompt || cardData[i], image: reader.result };
     };
     reader.readAsDataURL(file);
   };
   input.click();
+}
+
+function removeImage(i, cellDiv) {
+  if (confirm("Remove this photo?")) {
+    const img = cellDiv.querySelector("img");
+    if (img) img.remove();
+    cellDiv.classList.remove("checked");
+    cardData[i] = cardData[i].prompt || cardData[i];
+  }
 }
 
 function saveCard() {
@@ -196,13 +211,20 @@ function loadCard() {
       card.innerHTML = "";
       cardData.forEach((item, i) => {
         const div = document.createElement("div");
-        div.className = "cell checked";
+        div.className = "cell";
+        if (i === 12) div.classList.add("checked");
         if (typeof item === "string") {
-          div.classList.remove("checked");
           div.innerHTML = `<span>${item}</span>`;
-          if (i !== 12) div.addEventListener("click", () => uploadImage(i, div));
         } else {
+          div.classList.add("checked");
           div.innerHTML = `<span>${item.prompt}</span><img src="${item.image}" />`;
+        }
+        if (i !== 12) {
+          div.addEventListener("click", () => uploadImage(i, div));
+          div.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+            removeImage(i, div);
+          });
         }
         card.appendChild(div);
       });
@@ -222,3 +244,4 @@ function copyState() {
 </script>
 </body>
 </html>
+
