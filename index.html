@@ -115,7 +115,6 @@ const prompts = [
   "Take a photo with someone from another floor or area",
   "Take a photo with a friend smiling",
   "Take a photo of your Halloween drink",
-  "Take a photo showing your costume badge or name tag",
   "Take a photo next to something spooky AND funny",
   "Take a photo of your favorite snack on the table",
   "Take a photo with something sparkly or shiny",
@@ -134,8 +133,7 @@ function generateCard() {
   if (!name) return alert("Enter your name first!");
   
   const shuffled = prompts.sort(() => 0.5 - Math.random());
-  cardData = shuffled.slice(0, 9); // Only 9 cells now
-  cardData[4] = "🎃 FREE SPACE 🎃"; // Middle one is always FREE
+  cardData = shuffled.slice(0, 9);
   
   const card = document.createElement("div");
   card.className = "card";
@@ -144,7 +142,6 @@ function generateCard() {
   cardData.forEach((text, i) => {
     const div = document.createElement("div");
     div.className = "cell";
-    if (i === 4) div.classList.add("checked");
     div.innerHTML = `<span>${text}</span>`;
     if (i !== 4) {
       div.addEventListener("click", () => uploadImage(i, div));
@@ -250,6 +247,7 @@ function copyState() {
 </script>
 </body>
 </html>
+
 
 
 
