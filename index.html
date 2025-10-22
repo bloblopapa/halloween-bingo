@@ -14,18 +14,24 @@
     padding: 20px;
   }
   h1 { color: #ff7518; text-shadow: 0 0 8px #ff7518; }
-  .card { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; max-width: 700px; margin: 20px auto; }
-  .cell {
-    border: 2px solid #ff7518;
-    padding: 8px;
-    background: #2b1a1a;
-    border-radius: 8px;
-    min-height: 100px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+ .card {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  max-width: 500px;
+  margin: 20px auto;
+}
+.cell {
+  border: 2px solid #ff7518;
+  padding: 10px;
+  background: #2b1a1a;
+  border-radius: 8px;
+  min-height: 130px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
   .cell.checked { background: #4a1a1a; border-color: #ff9933; }
   .cell img { max-width: 100%; border-radius: 6px; margin-top: 4px; }
   button {
@@ -128,8 +134,8 @@ function generateCard() {
   if (!name) return alert("Enter your name first!");
   
   const shuffled = prompts.sort(() => 0.5 - Math.random());
-  cardData = shuffled.slice(0, 8);
-  cardData[5] = "🎃 FREE SPACE 🎃";
+  cardData = shuffled.slice(0, 9);
+  cardData[4] = "🎃 FREE SPACE 🎃";
   
   const card = document.createElement("div");
   card.className = "card";
@@ -138,9 +144,9 @@ function generateCard() {
   cardData.forEach((text, i) => {
     const div = document.createElement("div");
     div.className = "cell";
-    if (i === 12) div.classList.add("checked");
+    if (i === 4) div.classList.add("checked");
     div.innerHTML = `<span>${text}</span>`;
-    if (i !== 12) {
+    if (i !== 4) {
       div.addEventListener("click", () => uploadImage(i, div));
       div.addEventListener("contextmenu", (e) => {
         e.preventDefault();
@@ -244,6 +250,7 @@ function copyState() {
 </script>
 </body>
 </html>
+
 
 
 
