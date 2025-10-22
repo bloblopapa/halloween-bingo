@@ -23,10 +23,10 @@
 }
 .cell {
   border: 2px solid #ff7518;
-  padding: 10px;
+  padding: 15px;
   background: #2b1a1a;
   border-radius: 8px;
-  min-height: 130px;
+  min-height: 160px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -144,7 +144,7 @@ function generateCard() {
   cardData.forEach((text, i) => {
     const div = document.createElement("div");
     div.className = "cell";
-    if (i === 4) div.classList.add("checked"); // center cell
+    if (i === 4) div.classList.add("checked");
     div.innerHTML = `<span>${text}</span>`;
     if (i !== 4) {
       div.addEventListener("click", () => uploadImage(i, div));
@@ -218,7 +218,7 @@ function loadCard() {
       cardData.forEach((item, i) => {
         const div = document.createElement("div");
         div.className = "cell";
-        if (i === 12) div.classList.add("checked");
+        if (i === 4) div.classList.add("checked");
         if (typeof item === "string") {
           div.innerHTML = `<span>${item}</span>`;
         } else {
@@ -250,6 +250,7 @@ function copyState() {
 </script>
 </body>
 </html>
+
 
 
 
