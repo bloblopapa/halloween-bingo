@@ -128,8 +128,8 @@ function generateCard() {
   if (!name) return alert("Enter your name first!");
   
   const shuffled = prompts.sort(() => 0.5 - Math.random());
-  cardData = shuffled.slice(0, 25);
-  cardData[12] = "🎃 FREE SPACE 🎃";
+  cardData = shuffled.slice(0, 8);
+  cardData[5] = "🎃 FREE SPACE 🎃";
   
   const card = document.createElement("div");
   card.className = "card";
@@ -244,4 +244,5 @@ function copyState() {
 </script>
 </body>
 </html>
+
 
